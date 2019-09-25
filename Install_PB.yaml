@@ -44,7 +44,7 @@
     
     - name: Path Config
       blockinfile:
-        insertafter: EOF
+        insertafter: fi
         path: ~/.bashrc
         block: export JAVA_HOME=/usr/lib/jvm/java
         
