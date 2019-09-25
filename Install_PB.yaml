@@ -42,7 +42,8 @@
         - java-1.8.0-openjdk
         - maven
     - name: Adding the path in the Profile files
-      lineinfile: dest=~/.bash_profile line='export JAVA_HOME=/usr/lib/jvm/java' insertafter='EOF' regexp='export JAVA_HOME=/usr/lib/jvm/java' state=present
+      lineinfile: dest=~/.bashrc line='export JAVA_HOME=/usr/lib/jvm/java' insertafter='EOF' regexp='export JAVA_HOME=/usr/lib/jvm/java' state=present
+      shell: source ~/.bashrc
 
-    - name: Source the bash_profile file
-      shell: source ~/.bash_profile
+    #- name: Source the bashrc
+      #shell: source ~/.bashrc
