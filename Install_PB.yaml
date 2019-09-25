@@ -43,3 +43,6 @@
         - maven
     - name: Adding the path in the Profile files
       lineinfile: dest=~/.bashrc regexp='^JAVA_HOME'> line="export JAVA_HOME=/usr/lib/jvm/java/"
+      
+    - name: Echo JAVA_HOME
+      shell: "echo $JAVA_HOME"
