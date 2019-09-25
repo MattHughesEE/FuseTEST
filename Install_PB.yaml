@@ -49,4 +49,4 @@
         block: export JAVA_HOME=/usr/lib/jvm/java
         
     - name: Source
-      shell: . /root/.bashrc"
+      shell: . /root/.bashrc
