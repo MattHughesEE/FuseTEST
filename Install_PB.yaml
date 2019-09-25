@@ -25,3 +25,13 @@
         password: "{{ '{{ user_pswd }}' | password_hash('sha512') }}"
         create_home: true
         home: "{{ user_home }}"
+    - name: Create Library Destination
+      become: true
+      file:
+        path: "{{ user_home }}"
+        owner: "{{ username }}"
+        group: " {{ jboss_group }}"
+        state: directory
+        mode: '755'
+      tags:
+        - jboss_fuse
