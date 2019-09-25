@@ -41,9 +41,12 @@
         packages:
         - java-1.8.0-openjdk
         - maven
-    - name: Adding the path in the Profile files
-      lineinfile: dest=~/.bashrc line='export JAVA_HOME=/usr/lib/jvm/java' insertafter='EOF' regexp='export JAVA_HOME=/usr/lib/jvm/java' state=present
+    
+    - name: Path Config
+      blockinfile:
+        insertafter: EOF
+        path: ~/.bashrc
+        block: export JAVA_HOME=/usr/lib/jvm/java
+        
+    - name: Sourcr
       shell: source ~/.bashrc
-
-    #- name: Source the bashrc
-      #shell: source ~/.bashrc
