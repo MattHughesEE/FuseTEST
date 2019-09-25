@@ -43,6 +43,18 @@
         - maven
     - name: Adding the path in the Profile files
       lineinfile: dest=~/.bashrc regexp='^JAVA_HOME'> line="export JAVA_HOME=/usr/lib/jvm/java/"
+    
+    - name: Set M2_HOME var
+      linein: dest=~/.bashrc regexp='^M2_HOME'> line="export M2_HOME=/usr/share/maven"
+
+    - name: Set M2 var
+      linein: dest=~/.bashrc regexp='^M2'> line="export M2=$M2_HOME/bin"  
+
+    - name: Set JAVA_PATH
+      linein: dest=~/.bashrc regexp='^JAVA_HOME'> line="export PATH=$M2:$PATH"
+
+    - name: Source Bashrc
+      action: shell source ~/.bashrc  
       
     - name: Echo JAVA_HOME
       shell: "echo $JAVA_HOME"
