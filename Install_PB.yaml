@@ -32,3 +32,12 @@
       register: jboss_fuse_exists
       tags:
         - jboss_fuse
+        
+    - name: Install Java and Maven
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+        - java-1.8.0-openjdk
+        - maven
