@@ -22,6 +22,6 @@
       user:
         name: "{{ username }}"
         comment: "Jboss User"
-        password: "{{ user_pswd }}"
+        password: "{{ '{{ user_pswd }}' | password_hash('sha512') }}"
         create_home: true
         home: "{{ user_home }}"
