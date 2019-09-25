@@ -31,7 +31,5 @@
         path: "{{ user_home }}"
         owner: "{{ username }}"
         group: " {{ jboss_group }}"
-        state: directory
-        mode: '755'
       tags:
         - jboss_fuse
