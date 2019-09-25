@@ -25,11 +25,10 @@
         password: "{{ '{{ user_pswd }}' | password_hash('sha512') }}"
         create_home: true
         home: "{{ user_home }}"
-    - name: Create Library Destination
+    - name: Defensive Programming to check if FUSE already isntalled... Check existence of Libraries
       become: true
-      file:
-        path: "{{ user_home }}"
-        owner: "{{ username }}"
-        group: " {{ jboss_group }}"
+      stat:
+        path: "{{ user_home + '/jboss-fuse6.2.1.redhat-084/etc/org.apache.karaf.features.cfg'}}"
+      register: jboss_fuse_exists
       tags:
         - jboss_fuse
