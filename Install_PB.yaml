@@ -36,8 +36,10 @@
     - name: Install Java and Maven
       yum:
         name: "{{ packages }}"
-        state: latest
+        state: installed
       vars:
         packages:
         - java-1.8.0-openjdk
         - maven
+    - name: Adding the path in the Profile files
+      lineinfile: dest=~/.bashrc regexp='^JAVA_HOME'> line="export JAVA_HOME=/usr/lib/jvm/java/"
