@@ -45,8 +45,8 @@
     - name: Path Config
       blockinfile:
         insertafter: fi
-        path: ~/.bashrc
+        path: /root/.bashrc
         block: export JAVA_HOME=/usr/lib/jvm/java
         
-    - name: Sourcr
-      shell: source "~/.bashrc"
+    - name: Source
+      shell: . /root/.bashrc"
