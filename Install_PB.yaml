@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  vars:
+    jboss_group: jboss
+    username: jboss
+    user_pswd: Admin1234!
+    user_home: /usr/local/jboss
+
+
+  tasks:
+    - name: Create the Jboss Fuse Group
+      group:
+        name: "{{ jboss_group }}"
+        system: yes
+        state: present
+        gid: "400"
+      tags:
+        - jboss_fuse
+    
+    - name: Add user
+      user:
+        name: "{{ username }}"
+        comment: "Jboss User"
+        password: "{{ user_pswd }}"
+        create_home: true
+        home: "{{ user_home }}"
