@@ -64,8 +64,10 @@
       shell: source /usr/local/jboss/.bashrc
       
     - name: Async Downlaod Jboss Fuse from RH customer portal
-      get_url:
-        url: "{{ jboss_fuse_artifact_url }}"
-        dest: "{{ user_home }}"
+      redhat_csp_download:
+        username=matthew.hughes@axcelinno.io
+        password=Mr93ae96
+        url="{{ jboss_fuse_artifact_url }}"
+        dest="{{ user_home }}"
       tags:
         - jboss_fuse
