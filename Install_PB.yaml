@@ -114,8 +114,8 @@
           [Service]
           ExecStart=/usr/local/jboss/corpbroker1/bin/artemis run
           Restart=on-failure
-          User=amq-broker
-          Group=amq-broker
+          User="{{ username }}"
+          Group="{{ jboss_group }}"
           # A workaround for Java signal handling
           SuccessExitStatus=143
           [Install]
