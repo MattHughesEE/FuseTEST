@@ -89,7 +89,18 @@
         state: link
         
     - name: create a broker
-      shell: './usr/local/jboss/AMQ7/bin/artemis create corpbroker1'
+      shell: |
+        "./usr/local/jboss/AMQ7/bin/artemis create corpbroker1"
+        
+        expect "username:"
+        send "admin"
+        
+        expect "password:"
+        send "admin"
+        
+        expect "access?"
+        send Y
+        
       args:
         chdir: /usr/local/jboss
         
