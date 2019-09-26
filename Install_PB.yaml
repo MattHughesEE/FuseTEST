@@ -66,6 +66,6 @@
     - name: Async Downlaod Jboss Fuse from RH customer portal
       get_url:
         url: "{{ jboss_fuse_artifact_url }}"
-        dest: "{{ fuse_dl_destination }}"
+        dest: "{{ user_home }}"
       tags:
         - jboss_fuse
