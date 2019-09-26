@@ -9,6 +9,7 @@
     rh_username: matthew.hughes@axcelinno.io
     rh_password: Mr93ae96
     jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
+    symlink_name: AMQ7
 
 
   tasks:
@@ -81,3 +82,9 @@
         group: "{{ jboss_group }}"
       tags:
         - jboss_fuse
+     - name: Create symbolic Link
+      file:
+        src: '/usr/lcoal/jboss/amq-broker-7.2.3'
+        dest: '/usr/lcoal/jboss/{{ symlink_name }}'
+        state: link   
+     
