@@ -88,20 +88,24 @@
         dest: '/usr/local/jboss/{{ symlink_name }}'
         state: link
         
-    - name: Make AMQ/Fuse systemctl service - stop
-      systemd:
-        state: stopped
-        name: "{{ symlink_name }}"
-      
-    - name: Make AMQ/Fuse systemctl service - start
-      systemd:
-        state: started
-        name: "{{ symlink_name }}"
-    
-    - name: Make AMQ/Fuse systemctl service - restart
-      systemd:
-        state: restarted
-        name: "{{ symlink_name }}"
-      
-      
-     
+    - name: Create systemctl service restart
+      file:
+        path: /etc/systemd/system/amq-broker.service
+        state: touch
+
+    - name: Insert Text
+       blockinfile:
+         path: /etc/systemd/system/amq-broker.service
+         block: |
+           [Unit]
+           Description=AMQ Broker
+           After=syslog.target network.target
+           [Service]
+           ExecStart=/var/opt/amq-broker/mybroker/bin/artemis run
+           Restart=on-failure
+           User=amq-broker
+           Group=amq-broker
+           # A workaround for Java signal handling
+           SuccessExitStatus=143
+           [Install]
+           WantedBy=multi-user.target
