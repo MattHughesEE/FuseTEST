@@ -84,7 +84,7 @@
         - jboss_fuse
     - name: Create symbolic Link
       file:
-        src: '/usr/lcoal/jboss/amq-broker-7.2.3'
+        src: '/usr/local/jboss/amq-broker-7.2.3'
         dest: '/usr/lcoal/jboss/{{ symlink_name }}'
         state: link   
      
