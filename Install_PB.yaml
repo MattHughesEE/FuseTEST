@@ -8,7 +8,7 @@
     user_home: /usr/local/jboss
     rh_username: matthew.hughes@axcelinno.io
     rh_password: Mr93ae96
-    jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-sources.zip
+    jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
 
 
   tasks:
