@@ -82,7 +82,7 @@
         group: "{{ jboss_group }}"
       tags:
         - jboss_fuse
-     - name: Create symbolic Link
+    - name: Create symbolic Link
       file:
         src: '/usr/lcoal/jboss/amq-broker-7.2.3'
         dest: '/usr/lcoal/jboss/{{ symlink_name }}'
