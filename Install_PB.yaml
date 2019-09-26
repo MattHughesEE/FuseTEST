@@ -123,8 +123,7 @@
           WantedBy=multi-user.target
           
     - name: Reload systemctl
-      ansible_become: true
-      shell: systemctl daemon-reload
+      shell: sudo systemctl daemon-reload
    
     - name: Enable the broker service
       service:
