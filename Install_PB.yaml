@@ -6,6 +6,9 @@
     username: jboss
     user_pswd: Admin1234!
     user_home: /usr/local/jboss
+    rh_username: matthew.hughes@axcelinno.io
+    rh_password: Mr93ae96
+    jboss_fuse_artifact_url: https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=63531
 
 
   tasks:
@@ -59,3 +62,16 @@
 
     - name: Source Bashrc
       shell: source /usr/local/jboss/.bashrc
+      
+    - name: Async Downlaod Jboss Fuse from RH customer portal
+      redhat_csp_download:
+        url: "{{ jboss_fuse_artifact_url }}"
+        dest: "{{ fuse_dl_destination }}"
+        username: "{{ rh_username }}"
+        password: "{{ rh_password }}"
+      async: 7200
+      poll: 0
+      register: jboss_fuse_download
+      tags:
+        - jboss_fuse
+      when: transfer_method == 'csp-to-host' and jboss_fuse_exists.stat.exists == false
