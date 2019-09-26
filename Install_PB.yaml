@@ -90,7 +90,7 @@
         
     - name: Create broker
       expect:
-        command: "./usr/local/jboss/AMQ7/bin/artemis create corpbroker"
+        command: ./AMQ7/bin/artemis create corpbroker
         responses:
           Question:
             - admin
