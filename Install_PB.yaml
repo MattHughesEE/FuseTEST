@@ -75,7 +75,7 @@
       unarchive:
         #make this a variable using register
         src: /usr/local/jboss/amq-broker-7.2.3-sources.zip
-        dest: "{{ jboss_fuse_librarby_destination }}"
+        dest: "{{ user_home }}"
         copy: no
         owner: "{{ username }}"
         group: "{{ jboss_group }}"
