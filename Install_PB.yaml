@@ -112,7 +112,8 @@
           Description=AMQ Broker
           After=syslog.target network.target
           [Service]
-          ExecStart=/usr/local/jboss/corpbroker1/bin/artemis run
+          ExecStart=/usr/local/jboss/corpbroker/bin/artemis run
+          ExecStop=/usr/local/jboss/corpbroker/bin/artemis stop
           Restart=on-failure
           User="{{ username }}"
           Group="{{ jboss_group }}"
