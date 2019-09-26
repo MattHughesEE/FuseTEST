@@ -86,5 +86,22 @@
       file:
         src: '/usr/local/jboss/amq-broker-7.2.3'
         dest: '/usr/local/jboss/{{ symlink_name }}'
-        state: link   
+        state: link
+        
+    - name: Make AMQ/Fuse systemctl service - stop
+      systemd:
+      state: stopped
+      name: "{{ symlink_name }}"
+      
+    - name: Make AMQ/Fuse systemctl service - start
+      systemd:
+        state: started
+        name: "{{ symlink_name }}"
+    
+    - name: Make AMQ/Fuse systemctl service - restart
+      systemd:
+        state: restarted
+        name: "{{ symlink_name }}"
+      
+      
      
