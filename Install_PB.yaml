@@ -90,8 +90,8 @@
         
     - name: Make AMQ/Fuse systemctl service - stop
       systemd:
-      state: stopped
-      name: "{{ symlink_name }}"
+        state: stopped
+        name: "{{ symlink_name }}"
       
     - name: Make AMQ/Fuse systemctl service - start
       systemd:
