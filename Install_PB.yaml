@@ -74,7 +74,7 @@
       become: true
       unarchive:
         #make this a variable using register
-        src: /usr/local/jboss/amq-broker-7.2.3-sources.zip
+        src: /usr/local/jboss/amq-broker-7.2.3-bin.zip
         dest: "{{ user_home }}"
         copy: no
         owner: "{{ username }}"
