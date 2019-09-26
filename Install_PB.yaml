@@ -8,7 +8,7 @@
     user_home: /usr/local/jboss
     rh_username: matthew.hughes@axcelinno.io
     rh_password: Mr93ae96
-    jboss_fuse_artifact_url: https://developers.redhat.com/download-manager/file/amq-broker-7.4.0-bin.zip
+    jboss_fuse_artifact_url: https://jbossproducts.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
 
 
   tasks:
@@ -64,9 +64,7 @@
       shell: source /usr/local/jboss/.bashrc
       
     - name: Async Downlaod Jboss Fuse from RH customer portal
-      redhat_csp_download:
-        username=matthew.hughes@axcelinno.io
-        password=Mr93ae96
+      get_url:
         url="{{ jboss_fuse_artifact_url }}"
         dest="{{ user_home }}"
       tags:
