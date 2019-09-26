@@ -92,12 +92,9 @@
       expect:
         command: ./AMQ7/bin/artemis create corpbroker
         responses:
-          user:
-            - admin
-          password:
-            - admin
-          anonymous:  
-            - Y
+          - admin
+          - admin 
+          - Y
       args:
         chdir: /usr/local/jboss
         
