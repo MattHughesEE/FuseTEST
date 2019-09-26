@@ -43,7 +43,7 @@
         - maven
     
     - name: Adding the path in the Profile files
-      lineinfile: dest=/home/AXCuser/.bashrc regexp='^JAVA_HOME'> line='export JAVA_HOME="/usr/lib/jvm/java/TESTING"'
+      lineinfile: dest=/etc/environment regexp='^JAVA_HOME'> line='export JAVA_HOME="/usr/lib/jvm/java"'
       
     - name: Source Bashrc
       shell: "source /home/AXCuser/.bashrc"
