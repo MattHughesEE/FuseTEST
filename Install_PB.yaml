@@ -61,4 +61,4 @@
       shell: source /usr/local/jboss/.bashrc
       
     - name: Environment JAVA_HOME
-      environment: JAVA_HOME: /usr/lib/jvm/java
+      environment: JAVA_HOME: "/usr/lib/jvm/java"
