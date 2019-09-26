@@ -122,4 +122,6 @@
           WantedBy=multi-user.target
    
     - name: Enable the broker service
-      shell: sudo systemctl enable amq-broker
+      service:
+        name: amq-broker
+        enabled: yes
