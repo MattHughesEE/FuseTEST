@@ -43,19 +43,22 @@
         - maven
     
     - name: Adding the path in the Profile files
-      lineinfile: dest=/etc/environment regexp='^JAVA_HOME'> line='export JAVA_HOME="/usr/lib/jvm/java"'
+      lineinfile: dest=/usr/local/jboss/.bashrc regexp='^JAVA_HOME'> line='export JAVA_HOME="/usr/lib/jvm/java"'
       
     - name: Source Bashrc
-      shell: "source /home/AXCuser/.bashrc"
+      shell: . /usr/local/jboss/.bashrc
     
     - name: Set M2_HOME var
-      lineinfile: dest=/home/AXCuser/.bashrc regexp='^M2_HOME'> line='export M2_HOME="/usr/share/maven"'
+      lineinfile: dest=/usr/local/jboss/.bashrc regexp='^M2_HOME'> line='export M2_HOME="/usr/share/maven"'
 
     - name: Set M2 var
-      lineinfile: dest=/home/AXCuser/.bashrc regexp='^M2'> line="export M2=$M2_HOME/bin"  
+      lineinfile: dest=/usr/local/jboss/.bashrc regexp='^M2'> line="export M2=$M2_HOME/bin"  
 
     - name: Set JAVA_PATH
-      lineinfile: dest=/home/AXCuser/.bashrc regexp='^JAVA_HOME'> line="export PATH=$M2:$PATH"
+      lineinfile: dest=/usr/local/jboss/.bashrc regexp='^JAVA_HOME'> line="export PATH=$M2:$PATH"
 
     - name: Source Bashrc
-      shell: source /home/AXCuser/.bashrc
+      shell: source /usr/local/jboss/.bashrc
+      
+    - name: Environment JAVA_HOME
+      environment: JAVA_HOME: /usr/lib/jvm/java
