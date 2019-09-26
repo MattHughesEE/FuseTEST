@@ -59,7 +59,3 @@
 
     - name: Source Bashrc
       shell: source /usr/local/jboss/.bashrc
-      
-    - name: Environment JAVA_HOME
-      environment: 
-        PATH: "JAVA_HOME:/usr/lib/jvm/java"
