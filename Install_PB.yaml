@@ -121,8 +121,14 @@
           SuccessExitStatus=143
           [Install]
           WantedBy=multi-user.target
+          
+    - name: Reload systemctl
+      ansible_become: true
+      shell: systemctl daemon-reload
    
     - name: Enable the broker service
       service:
         name: amq-broker
         enabled: yes
+        state: started
+ 
