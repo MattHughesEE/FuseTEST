@@ -88,6 +88,12 @@
         dest: '/usr/local/jboss/{{ symlink_name }}'
         state: link
         
+    - name: create a broker
+      shell: './usr/local/jboss/AMQ7/bin/artemis create corpbroker1'
+        args:
+          chdir: /usr/local/jboss
+        
+        
     - name: Create systemctl service restart
       file:
         path: /etc/systemd/system/amq-broker.service
@@ -101,7 +107,7 @@
           Description=AMQ Broker
           After=syslog.target network.target
           [Service]
-          ExecStart=/var/opt/amq-broker/mybroker/bin/artemis run
+          ExecStart=/usr/local/jboss/corpbroker1/bin/artemis run
           Restart=on-failure
           User=amq-broker
           Group=amq-broker
@@ -109,3 +115,6 @@
           SuccessExitStatus=143
           [Install]
           WantedBy=multi-user.target
+   
+    - name: Enable the broker service
+      shell: sudo systemctl enable amq-broker
