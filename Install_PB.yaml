@@ -88,19 +88,14 @@
         dest: '/usr/local/jboss/{{ symlink_name }}'
         state: link
         
-    - name: create a broker
-      shell: |
-        "./usr/local/jboss/AMQ7/bin/artemis create corpbroker1"
-        
-        expect "username:"
-        send "admin"
-        
-        expect "password:"
-        send "admin"
-        
-        expect "access?"
-        send Y
-        
+    - name: Create broker
+      expect:
+        command: "./usr/local/jboss/AMQ7/bin/artemis create corpbroker"
+        responses:
+          Question:
+            - admin
+            - admin
+            - Y
       args:
         chdir: /usr/local/jboss
         
