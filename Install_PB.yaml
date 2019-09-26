@@ -90,8 +90,8 @@
         
     - name: create a broker
       shell: './usr/local/jboss/AMQ7/bin/artemis create corpbroker1'
-        args:
-          chdir: /usr/local/jboss
+      args:
+        chdir: /usr/local/jboss
         
         
     - name: Create systemctl service restart
