@@ -8,7 +8,7 @@
     user_home: /usr/local/jboss
     rh_username: matthew.hughes@axcelinno.io
     rh_password: Mr93ae96
-    jboss_fuse_artifact_url: https://access.redhat.com/jbossnetwork/restricted/softwareDownload.html?softwareId=63531
+    jboss_fuse_artifact_url: https://developers.redhat.com/download-manager/file/amq-broker-7.4.0-bin.zip
 
 
   tasks:
