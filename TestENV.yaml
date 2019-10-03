@@ -32,8 +32,6 @@
         create_home: true
         home: "{{ user_home }}"
 
-    - name: CHECK IF FUSE INSTALLED
-
     - name: Install OpenJDK and Maven Packages
       yum:
         name: "{{ packages }}"
