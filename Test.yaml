@@ -1,0 +1,55 @@
+---
+#Dependency install expect
+- name: Create Broker PLAYBOOK
+  hosts: all
+  vars:
+    broker_name: amq-broker1
+    broker_user: admin
+    broker_pswd: admin
+    allow_anon: "Y"
+    user_home: /usr/local/jboss
+    username: jboss
+    group: jboss
+
+  tasks:
+    - name: Create AMQ Broker
+      expect:
+        command: ./AMQ7/bin/artemis create {{ broker_name }}
+        responses:
+          user: "{{ broker_user }}"
+          password: "{{ broker_pswd }}"
+          allow: "{{ allow_anon }}"
+      args:
+        chdir: "{{ user_home }}"
+
+    - name: Create broker .service file
+      file:
+        path: /etc/systemd/system/{{ broker_name }}.service
+        state: touch
+
+    - name: Add context to broker .service file
+      blockinfile:
+        path: /etc/systemd/system/{{ broker_name }}.service
+        block: |
+          [Unit]
+          Description=AMQ Broker
+          After=syslog.target network.target
+          [Service]
+          ExecStart=/usr/local/jboss/corpbroker/bin/artemis run
+          ExecStop=/usr/local/jboss/corpbroker/bin/artemis stop
+          Restart=on-failure
+          User="{{ username }}"
+          Group="{{ group }}"
+          # A workaround for Java signal handling
+          SuccessExitStatus=143
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemctl
+      shell: sudo systemctl daemon-reload
+
+    - name: Enable the broker service
+      service:
+        name: "{{ broker_name }}"
+        enabled: yes
+        state: started
