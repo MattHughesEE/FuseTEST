@@ -2,6 +2,15 @@
 # This role downloads AMQ7
 - name: Download AMQ7 and Create Symlink
   hosts: all
+  vars:
+   jboss_group: jboss
+   username: jboss
+   user_pswd: Admin1234!
+   user_home: /usr/local/jboss
+   rh_username: matthew.hughes@axcelinno.io
+   rh_password: Mr93ae96
+   jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
+   symlink_name: AMQ7
 
   tasks:
     - name: Download Jboss AMQ7 from S3 bucket -- (will change to Artifacrory)
