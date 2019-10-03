@@ -1,5 +1,6 @@
 ---
 - name: Playbook for AMQ7
+  hosts: all
   roles:
     - Pre-Reqs
     - AMQ7
