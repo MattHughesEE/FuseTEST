@@ -16,6 +16,7 @@
     password: "{{  '{{ pswd }}' | password_hash('sha512') }}"
     create_home: true
     home: "{{ user_home }}"
+    state: present
 
 - name: Install OpenJDK and Maven Packages
   yum:
