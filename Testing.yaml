@@ -20,3 +20,19 @@
       register: archive
     - debug:
         var=archive
+
+    - debug:
+        var=archive.dest
+
+    - name: Unarchive (EXTRACT) Jboss Fuse
+      become: true
+      unarchive:
+        src: "{{ archive.dest }}"
+        dest: "{{ userhome }}"
+        copy: no
+        owner: "{{ username }}"
+        group: "{{ group }}"
+      register: secondvar
+
+    - debug:
+        var=secondvar
