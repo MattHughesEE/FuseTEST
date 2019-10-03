@@ -13,6 +13,8 @@
     pswd: "Admin1234!"
     username: jboss
     user_home: /usr/local/jboss
+    maven_home_parent_directory: /usr/share
+    maven: maven
     
   tasks:
     - name: Create group jboss
@@ -43,3 +45,18 @@
       register: output
     - debug:
         var=output
+    
+    - name: Maven Path Configuration
+      lineinfile:
+        dest: /etc/profile.d/maven.sh
+        line: '{{item.line }}'
+        create: yes
+        state: present
+      with_items:
+        - { line: 'M2_HOME={{ maven_home_parent_directory }}/{{ maven }}' }
+        - { line: 'PATH=$PATH:$M2_HOME/bin' }
+    register: mavenVar
+    
+    - debug:
+        var=mavenVar
+        
