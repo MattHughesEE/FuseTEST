@@ -1,0 +1,46 @@
+---
+# This role executes the neccessary pre-reqs for installing either AMQ7 or FUSE
+#This role will do the following:
+#     - Create jboss user and group
+#     - Install OpenJDK
+#     - Install Maven
+#     - Set environment a variables
+
+- name: Jboss_PreReq Role
+  hosts: all
+  vars: 
+    group: jboss
+    pswd: "Admin1234!"
+    username: jboss
+    user_home: /usr/local/jboss
+    
+  tasks:
+    - name: Create group jboss
+      group:
+        name: "{{ group }}"
+        system: yes
+        state: present
+        gid: "400" # CHECK THIS VALUE
+      tags:
+        - jboss_fuse
+      
+    - name: Create user and users home directory
+      user: "{{ username }}"
+      comment: "'{{ username }}' user"
+      password: "{{  '{{ pswd }}' | password_hash('sha512') }}"
+      create_home: true
+      home: "{{ user_home }}"
+
+    - name: CHECK IF FUSE INSTALLED
+
+    - name: Install OpenJDK and Maven Packages
+      yum:
+        name: "{{ packages }}"
+        state: installed
+      vars:
+        packages:
+        - java-1.8.0-openjdk
+        - maven
+      register: output
+    - debug:
+        var=output
