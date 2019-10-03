@@ -35,6 +35,7 @@
 
 - name: Reload systemctl
   shell: systemctl daemon-reload
+  become: yes
 
 - name: Enable the broker service
   service:
