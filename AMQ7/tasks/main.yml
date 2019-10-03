@@ -1,0 +1,24 @@
+---
+# tasks file for AMQ7
+- name: Download Jboss AMQ7 from S3 bucket -- (will change to Artifacrory)
+  get_url: 
+    url: "{{ jboss_fuse_artifact_url }}"
+    dest: "{{ user_home }}"
+  register: archive
+- debug:
+    var=archive
+
+- name: Unarchive (EXTRACT) Jboss Fuse
+  become: true
+  unarchive:
+    src: "{{ archive.dest }}"
+    dest: "{{ user_home }}"
+    copy: no
+    owner: "{{ username }}"
+    group: "{{ group }}"
+
+- name: Create Symbolic Link
+  file:
+    src: '{{ user_home }}/amq-broker-{{ version }}'
+    dest: '{{ user_home }}/{{ symlink_name }}'
+    state: link

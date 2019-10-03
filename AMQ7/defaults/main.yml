@@ -1,0 +1,9 @@
+---
+# defaults file for AMQ7
+group: jboss
+username: jboss
+user_pswd: Admin1234!
+user_home: /usr/local/jboss
+jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
+symlink_name: AMQ7
+version: '7.2.3'
