@@ -28,7 +28,7 @@
       become: true
       unarchive:
         src: "{{ archive.dest }}"
-        dest: "{{ userhome }}"
+        dest: "{{ user_home }}"
         copy: no
         owner: "{{ username }}"
         group: "{{ group }}"
