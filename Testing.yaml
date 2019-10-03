@@ -1,0 +1,16 @@
+---
+# This role downloads AMQ7
+- name: Download AMQ7 and Create Symlink
+  hosts: all
+
+  tasks:
+    - name: Download Jboss AMQ7 from S3 bucket -- (will change to Artifacrory)
+      get_url: 
+        url: "{{ jboss_fuse_artifact_url }}" #Register this as a variable
+        dest: "{{ user_home }}"
+        copy: no
+        owner: "{{ username }}"
+        group: "{{ group }}"
+     register: archive
+    - debug:
+        var=archive
