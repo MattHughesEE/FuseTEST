@@ -55,7 +55,7 @@
       with_items:
         - { line: 'M2_HOME={{ maven_home_parent_directory }}/{{ maven }}' }
         - { line: 'PATH=$PATH:$M2_HOME/bin' }
-    register: mavenVar
+      register: mavenVar
     
     - debug:
         var=mavenVar
