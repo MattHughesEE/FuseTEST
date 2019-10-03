@@ -22,9 +22,6 @@
     - debug:
         var=archive
 
-    - debug:
-        var=archive.dest
-
     - name: Unarchive (EXTRACT) Jboss Fuse
       become: true
       unarchive:
