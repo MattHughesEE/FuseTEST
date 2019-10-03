@@ -46,7 +46,9 @@
       register: output
     - debug:
         var=output
-    
+        
+        
+    #Consider moving these into a jinja2 template
     - name: Maven Path Configuration
       lineinfile:
         dest: /etc/profile.d/maven.sh
