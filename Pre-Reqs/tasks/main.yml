@@ -1,0 +1,55 @@
+---
+# tasks file for Pre-Reqs
+- name: Create group jboss
+  group:
+    name: "{{ group }}"
+    system: yes
+    state: present
+    gid: "400" # CHECK THIS VALUE
+  tags:
+    - jboss_fuse
+  
+- name: Create user and users home directory
+  user:
+    name: "{{ username }}"
+    comment: "'{{ username }}' user"
+    password: "{{  '{{ pswd }}' | password_hash('sha512') }}"
+    create_home: true
+    home: "{{ user_home }}"
+
+- name: Install OpenJDK and Maven Packages
+  yum:
+    name: "{{ packages }}"
+    state: installed
+  vars:
+    packages:
+    - java-1.8.0-openjdk
+    - maven
+  register: output
+- debug:
+    var=output
+    
+    
+#Consider moving these into a jinja2 template
+- name: Maven Path Configuration
+  lineinfile:
+    dest: /etc/profile.d/maven.sh
+    line: '{{item.line }}'
+    create: yes
+    state: present
+  with_items:
+    - { line: 'M2_HOME={{ maven_home_parent_directory }}/{{ maven }}' }
+    - { line: 'PATH=$PATH:$M2_HOME/bin' }
+  register: mavenVar
+
+- debug:
+    var=mavenVar
+    
+- name: Java Path configuration
+  lineinfile:
+    dest: /etc/profile.d/java.sh
+    line: '{{ item.line }}'
+    create: yes
+    state: present
+  with_items:
+    - { line: 'JAVA_HOME={{ java_home_parent_directory }}/java' }

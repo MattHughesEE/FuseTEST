@@ -1,0 +1,9 @@
+---
+# defaults file for Pre-Reqs
+group: jboss
+pswd: "Admin1234!"
+username: jboss
+user_home: /usr/local/jboss
+maven_home_parent_directory: /usr/share
+maven: maven
+java_home_parent_directory: /usr/lib/jvm
