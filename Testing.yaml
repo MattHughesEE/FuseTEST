@@ -11,6 +11,7 @@
    rh_password: Mr93ae96
    jboss_fuse_artifact_url: https://jbossproductsaps.s3.amazonaws.com/amq-broker-7.2.3-bin.zip
    symlink_name: AMQ7
+   version: '7.2.3'
 
   tasks:
     - name: Download Jboss AMQ7 from S3 bucket -- (will change to Artifacrory)
@@ -32,7 +33,9 @@
         copy: no
         owner: "{{ username }}"
         group: "{{ group }}"
-      register: secondvar
 
-    - debug:
-        var=secondvar
+    - name: Create Symbolic Link
+      file:
+        src: '{{ userhome }}/amq-broker-{{ version }}'
+        dest: '
+        state: link
