@@ -37,6 +37,10 @@
   shell: systemctl daemon-reload
   become: yes
 
+#- name: reload
+ # shell: systemctl reload "{{ broker_name }}".service
+  #become: yes
+
 - name: Enable the broker service
   service:
     name: "{{ broker_name }}"
