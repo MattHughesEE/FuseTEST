@@ -15,6 +15,7 @@
     user_home: /usr/local/jboss
     maven_home_parent_directory: /usr/share
     maven: maven
+    java_home_parent_directory: /usr/lib/jvm/
     
   tasks:
     - name: Create group jboss
@@ -59,4 +60,13 @@
     
     - debug:
         var=mavenVar
+        
+    - name: Java Path configuration
+      lineinfile:
+        dest: /etc/profile.d/java.sh
+        line: '{{ item.line }}'
+        create: yes
+        state: present
+      with_items:
+        - { line: 'JAVA_HOME={{ java_home_parent_directory }}/java' }
         
