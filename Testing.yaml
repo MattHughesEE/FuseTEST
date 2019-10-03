@@ -11,6 +11,6 @@
         copy: no
         owner: "{{ username }}"
         group: "{{ group }}"
-     register: archive
+      register: archive
     - debug:
         var=archive
