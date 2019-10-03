@@ -36,6 +36,6 @@
 
     - name: Create Symbolic Link
       file:
-        src: '{{ userhome }}/amq-broker-{{ version }}'
-        dest: '
+        src: '{{ user_home }}/amq-broker-{{ version }}'
+        dest: '{{ user_home }}/{{ symlink_name }}'
         state: link
