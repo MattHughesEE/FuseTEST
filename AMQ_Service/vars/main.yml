@@ -1,0 +1,9 @@
+---
+# vars file for AMQ_Service
+broker_name: amq-broker1
+broker_user: admin
+broker_pswd: admin
+allow_anon: "Y"
+user_home: /usr/local/jboss
+username: jboss
+group: jboss
