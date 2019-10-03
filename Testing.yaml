@@ -3,7 +3,7 @@
 - name: Download AMQ7 and Create Symlink
   hosts: all
   vars:
-   jboss_group: jboss
+   group: jboss
    username: jboss
    user_pswd: Admin1234!
    user_home: /usr/local/jboss
