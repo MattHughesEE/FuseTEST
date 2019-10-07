@@ -1,6 +1,6 @@
 ---
 - name: Testing
-- hosts: all
+  hosts: all
   gather_facts: no
   become: true
   
