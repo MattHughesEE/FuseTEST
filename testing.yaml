@@ -1,11 +1,9 @@
 ---
 - name: Testing
   hosts: all
-  gather_facts: no
-  become: true
   
   tasks:
-    - name Check the process status
+    - name: Check the process status
       shell: ps -ef | grep java
       register: output
     - debug:
