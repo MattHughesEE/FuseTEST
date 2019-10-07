@@ -4,9 +4,8 @@
   
   tasks:
     - name: Check the process status
-      shell: jps -lV
+      shell: jps -lV | grep activemq
       register: output
     - debug:
         var=output
-      
   
