@@ -9,3 +9,11 @@
     - debug:
         var=output
   
+  
+    - name: Get running processes
+      shell: "ps -ef | grep -v grep | grep -w {{ PROCESS }} | awk '{print $2}'"
+      register: running_processes
+      
+    - debug: output2
+        var=output2
+      
