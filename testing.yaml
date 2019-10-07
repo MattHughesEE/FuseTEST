@@ -18,4 +18,18 @@
       
     - debug:
         var=running_processes
+        
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+ 
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: crunchify_processes
       
+    - debug:
+        var=crunchify_processes
