@@ -5,6 +5,7 @@
     PROCESS: Artemis
   
   tasks:
+        
     - name: Check the process status
       shell: jps
       register: output
