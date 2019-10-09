@@ -5,6 +5,16 @@
     PROCESS: Artemis
   
   tasks:
+  
+    - name: Graceful shutdown of AMQ
+      shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
+      pause:
+        seconds: 30
+   
+   
+    #- name: Graceful shutdown of FUSE
+      #shell: /usr/local/jboss/{{ Fuse }}/
+    
     - name: Check the process status
       shell: jps
       register: output
