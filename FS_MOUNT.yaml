@@ -3,6 +3,7 @@
   hosts: all
   vars:
     PROCESS: Artemis
+    broker_name: amq_broker1
   
   tasks:
   
