@@ -1,0 +1,9 @@
+---
+- hosts: all
+  vars:
+    bundle_id: XXXXXX
+
+  tasks:
+    - name: Deploy bundles
+      shell: osgi:start "{{ bundle_id }}"
+      
