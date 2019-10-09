@@ -8,7 +8,7 @@
   
     - name: Graceful shutdown of AMQ
       shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
-      pause:
+    - pause:
         seconds: 30
    
    
