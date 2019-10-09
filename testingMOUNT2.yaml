@@ -5,7 +5,35 @@
     PROCESS: Artemis
   
   tasks:
+    - name: Check the process status
+      shell: jps
+      register: output
+    - debug:
+        var=output
   
+    - name: Get running processes
+      shell: "ps -ef | grep -v grep | grep -w {{ PROCESS }} | awk '{print $2}'"
+      register: running_processes
+      
+    - debug:
+        var=running_processes
+        
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+ 
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: crunchify_processes
+      
+    - debug:
+        var=crunchify_processes
+    
+###########################################
     - name: Create vg001
       lvg:
         vg: vg001
@@ -31,31 +59,27 @@
         fstype: xfs
         state: mounted
 #######################################################        
-    - name: Check the process status
-      shell: jps
-      register: output
-    - debug:
-        var=output
-  
-  
-    - name: Get running processes
-      shell: "ps -ef | grep -v grep | grep -w {{ PROCESS }} | awk '{print $2}'"
-      register: running_processes
+    - name: Copy contents over
+      shell: find /usr/local/jboss/ -depth -print | cpio -pamVd /tmpmount/
       
-    - debug:
-        var=running_processes
+    - name: Move the usr/local/jboss content to /tmp/
+      shell: mv -r /usr/local/jboss /tmp/
+   
+    - name: Unmount
+      mount:
+        path: /tmpmount/
+        state: unmounted #absent will remove mounts entry from /etc/fstab and will also unmount the device and remove the mount point
+    
+    - name: Rename /tmpmount/ in fstab
+      mount:
+        path: /usr/local/jboss/
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: present
         
-    - name: Kill running processes
-      ignore_errors: yes
-      shell: "kill {{ item }}"
-      with_items: "{{ running_processes.stdout_lines }}"
- 
-    - wait_for:
-        path: "/proc/{{ item }}/status"
-        state: absent
-      with_items: "{{ running_processes.stdout_lines }}"
-      ignore_errors: yes
-      register: crunchify_processes
-      
-    - debug:
-        var=crunchify_processes
+    - name: Mount
+      mount:
+        path: /usr/local/jboss
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: mounted
