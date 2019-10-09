@@ -10,7 +10,7 @@
     - name: Graceful shutdown of AMQ
       shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
     - pause:
-        seconds: 30
+        timeout: 30
    
    
     #- name: Graceful shutdown of FUSE
