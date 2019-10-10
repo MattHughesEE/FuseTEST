@@ -48,6 +48,7 @@
         
     - name: PAUSE FOR VERIFICATION
       pause:
+      echo: yes
         
     - name: Create vg001
       lvg:
