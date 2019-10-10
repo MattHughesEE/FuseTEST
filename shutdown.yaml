@@ -45,3 +45,31 @@
       
     - debug:
         var=fuse_processes
+        
+    - name: PAUSE FOR VERIFICATION
+      pause:
+        
+    - name: Create vg001
+      lvg:
+        vg: vg001
+        pvs: /dev/sdb
+    
+    - name: Create LVM
+      lvol:
+        vg: vg001
+        lv: lv001_001
+        size: +100%FREE
+        pvs: /dev/sdb
+        
+    - name: Create the filesystem
+      filesystem:
+        fstype: xfs
+        dev: /dev/vg001/lv001_001
+        opts: "-L /tmpmount/"
+        
+    - name: Mount the file system
+      mount: 
+        path: /tmpmount/
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: mounted
