@@ -1,0 +1,47 @@
+---
+- name: Testing
+  hosts: all
+  vars:
+    PROCESS: Artemis
+    broker_name: amq_broker1
+  
+  tasks:
+  
+    - name: Graceful shutdown of AMQ
+      shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
+      
+    - name: wait
+      wait_for:
+        timeout: 30
+   
+   
+    #- name: Graceful shutdown of FUSE
+      #shell: /usr/local/jboss/{{ Fuse }}/
+    
+    - name: Check the process status
+      shell: jps
+      register: output
+    - debug:
+        var=output
+  
+    - name: Get running processes
+      shell: "ps -ef | grep -v grep | grep -w {{ PROCESS }} | awk '{print $2}'"
+      register: running_processes
+      
+    - debug:
+        var=running_processes
+        
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+ 
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: crunchify_processes
+      
+    - debug:
+        var=crunchify_processes
