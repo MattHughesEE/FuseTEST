@@ -80,3 +80,28 @@
         src: /dev/vg001/lv001_001
         fstype: xfs
         state: mounted
+    
+    - name: Copy contents over
+      shell: find /usr/local/jboss/ -depth -print | cpio -pamVd /tmpmount/
+      
+    - name: Move the usr/local/jboss content to /tmp/
+      shell: mv -r /usr/local/jboss /tmp/
+   
+    - name: Unmount
+      mount:
+        path: /tmpmount/
+        state: unmounted #absent will remove mounts entry from /etc/fstab and will also unmount the device and remove the mount point
+    
+    - name: Rename /tmpmount/ in fstab
+      mount:
+        path: /usr/local/jboss/
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: present
+        
+    - name: Mount
+      mount:
+        path: /usr/local/jboss
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: mounted
