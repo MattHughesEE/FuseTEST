@@ -9,6 +9,8 @@
   
     - name: Graceful shutdown of AMQ
       shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
+      
+    - name: wait
       wait_for:
         timeout: 30
    
