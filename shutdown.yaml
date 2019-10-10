@@ -12,11 +12,11 @@
       
     - name: wait
       wait_for:
-        timeout: 30
+        timeout: 15
    
    
-    #- name: Graceful shutdown of FUSE
-      #shell: /usr/local/jboss/{{ Fuse }}/
+    - name: Graceful shutdown of FUSE
+      shell: ./usr/local/jboss/fuse/bin/stop 
     
     - name: Check the process status
       shell: jps
@@ -41,7 +41,7 @@
         state: absent
       with_items: "{{ running_processes.stdout_lines }}"
       ignore_errors: yes
-      register: crunchify_processes
+      register: fuse_processes
       
     - debug:
-        var=crunchify_processes
+        var=fuse_processes
