@@ -2,7 +2,7 @@
 - name: Testing
   hosts: all
   vars:
-    PROCESS: Artemis
+    PROCESS: java
     broker_name: amq-broker1
   
   tasks:
