@@ -10,13 +10,17 @@
     - name: Graceful shutdown of AMQ
       shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
       
-    - name: wait
+    - name: wait for AMQ to shutdown
       wait_for:
-        timeout: 15
+        timeout: 10
    
    
     #- name: Graceful shutdown of FUSE
       #shell: ./usr/local/jboss/fuse/bin/stop 
+      
+    - name: wait for FUSE to shutdown
+      wait_for:
+        timeout: 10
     
     - name: Check the process status
       shell: jps
@@ -49,7 +53,7 @@
     - name: PAUSE FOR VERIFICATION
       pause:
         echo: yes
-        user_input: yes
+        user_input: "continue"
         
     - name: Create vg001
       lvg:
