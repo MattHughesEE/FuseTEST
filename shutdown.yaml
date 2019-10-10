@@ -49,6 +49,7 @@
     - name: PAUSE FOR VERIFICATION
       pause:
         echo: yes
+        user_input: yes
         
     - name: Create vg001
       lvg:
