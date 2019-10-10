@@ -53,7 +53,7 @@
     - name: PAUSE FOR VERIFICATION
       pause:
         echo: yes
-        promot: "Press Enter to Continue and CTRL-C to abort"
+        prompt: "Press Enter to Continue and CTRL-C to abort"
         
         
     - name: Create vg001
