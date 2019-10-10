@@ -15,8 +15,8 @@
         timeout: 15
    
    
-    - name: Graceful shutdown of FUSE
-      shell: ./usr/local/jboss/fuse/bin/stop 
+    #- name: Graceful shutdown of FUSE
+      #shell: ./usr/local/jboss/fuse/bin/stop 
     
     - name: Check the process status
       shell: jps
