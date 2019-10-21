@@ -1,14 +1,30 @@
 ---
 # tasks file for AMQ_Service
-- name: Create AMQ Broker
-  expect:
-    command: sudo /AMQ7/bin/artemis create {{ broker_name }}
-    responses:
-      user: "{{ broker_user }}"
-      password: "{{ broker_pswd }}"
-      allow: "{{ allow_anon }}"
+- name: Create AMQ broker
+  shell: |
+    set timeout 300
+    /AMQ7/bin/artemis create {{ broker_name }}
+    
+    expect "user:"
+    send "{{ broker_user }}\n"
+    
+    expect "password:"
+    send "{{ broker_pswd }}\n"
+    
+    expect "allow:"
+    send "{{ allow_anon }}\n"
   args:
     chdir: "{{ user_home }}"
+    
+#- name: Create AMQ Broker
+  #expect:
+    #command: sudo /AMQ7/bin/artemis create {{ broker_name }}
+    #responses:
+      #user: "{{ broker_user }}"
+     # password: "{{ broker_pswd }}"
+     # allow: "{{ allow_anon }}"
+#  args:
+    #chdir: "{{ user_home }}"
 
 - name: Create broker .service file
   file:
