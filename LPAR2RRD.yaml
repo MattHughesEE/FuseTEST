@@ -11,9 +11,9 @@
     - debug: var=output
 
     - name: Installation
-      shell: sudo rpm -Uvh lpar2rrd-agent-6.10.0.noarch.rpm
-      args:
-        chdir: /opt/
+      shell: sudo rpm -Uvh "{{ output.dest }}"
+      #args:
+       # chdir: /opt/
 
     - name: Shell
       shell: rpm -qa|grep lpar2rrd-agent
