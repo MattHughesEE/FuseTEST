@@ -3,17 +3,22 @@
   hosts: all
   tasks:
 
-    - name: Download LPAR2RRD agent
-      get_url:
-        url: https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm
-        dest: /opt/
-      register: output
-    - debug: var=output
+    #- name: Download LPAR2RRD agent
+      #get_url:
+        #url: https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm
+        #dest: /opt/
+      #register: output
+   # - debug: var=output
 
-    - name: Installation
-      shell: rpm -Uvh "{{ output.dest }}"
-      register: install
-    - debug: var=install
+    #- name: Installation
+      #shell: rpm -Uvh "{{ output.dest }}"
+      #register: install
+   # - debug: var=install
+   
+    - name: Install
+      dnf:
+        name: 'https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm'
+        state: present
 
 
     - name: Shell
