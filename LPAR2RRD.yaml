@@ -23,6 +23,11 @@
       register: test
     - debug: var=test
     
+    - name: Touch again the same file, but dont change times this makes the task idempotent
+      file:
+        path: /var/spool/cron/mrh
+        state: touch
+    
 
     - name: Crontab
       shell: echo "* * * * * /usr/bin/perl /opt/lpar2rrd-agent/lpar2rrd-agent.pl 10.10.158.11 > /var/tmp/lpar2rrd-agent.out 2>&1" >> /var/spool/cron/mrh
