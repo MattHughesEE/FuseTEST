@@ -25,4 +25,4 @@
     
 
     - name: Crontab
-      shell: ehco "* * * * * /usr/bin/perl /opt/lpar2rrd-agent/lpar2rrd-agent.pl 10.10.158.11 > /var/tmp/lpar2rrd-agent.out 2>&1" >> /var/spool/cron/mrh
+      shell: echo "* * * * * /usr/bin/perl /opt/lpar2rrd-agent/lpar2rrd-agent.pl 10.10.158.11 > /var/tmp/lpar2rrd-agent.out 2>&1" >> /var/spool/cron/mrh
