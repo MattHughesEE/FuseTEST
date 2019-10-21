@@ -23,10 +23,10 @@
       register: test
     - debug: var=test
     
-    - name: Touch again the same file, but dont change times this makes the task idempotent
-      file:
-        path: /var/spool/cron/mrh
-        state: touch
+   # - name: Touch again the same file, but dont change times this makes the task idempotent
+      #file:
+        #path: /var/spool/cron/mrh
+        #state: touch
     
 
     - name: Crontab
