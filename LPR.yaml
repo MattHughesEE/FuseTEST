@@ -1,0 +1,28 @@
+---
+- name: LPAR2RRD
+  hosts: all
+  tasks:
+
+    - name: Download LPAR2RRD agent
+      get_url:
+        url: https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm
+        dest: /opt/
+      register: output
+    - debug: var=output
+
+    - name: Installation
+      shell: rpm -Uvh "{{ output.dest }}"
+   
+    #- name: Install
+      #yum:
+        #name: 'https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm'
+        #state: present
+
+
+    - name: Shell
+      shell: rpm -qa|grep lpar2rrd-agent
+      register: test
+    - debug: var=test
+
+    - name: Crontab
+      shell: echo "* * * * * /usr/bin/perl /opt/lpar2rrd-agent/lpar2rrd-agent.pl 10.10.158.11 > /var/tmp/lpar2rrd-agent.out 2>&1" >> /var/spool/cron/mrh
