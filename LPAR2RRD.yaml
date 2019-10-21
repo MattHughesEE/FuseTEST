@@ -16,7 +16,7 @@
    # - debug: var=install
    
     - name: Install
-      dnf:
+      yum:
         name: 'https://www.lpar2rrd.com/agent/lpar2rrd-agent-6.10-0.noarch.rpm'
         state: present
 
