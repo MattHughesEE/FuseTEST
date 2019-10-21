@@ -14,8 +14,7 @@
       shell: rpm -Uvh "{{ output.dest }}"
       register: install
     - debug: var=install
-     # args:
-       # chdir: /opt/
+
 
     - name: Shell
       shell: rpm -qa|grep lpar2rrd-agent
