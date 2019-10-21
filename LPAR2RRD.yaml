@@ -10,8 +10,10 @@
       register: output
     - debug: var=output
 
-    - name: Solaris Installation under Root
+    - name: Installation
       shell: sudo rpm -Uvh lpar2rrd-agent-6.10.0.noarch.rpm
+      args:
+        chdir: /opt/
 
     - name: Shell
       shell: rpm -qa|grep lpar2rrd-agent
