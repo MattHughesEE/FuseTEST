@@ -1,0 +1,19 @@
+---
+- name: Testing
+  hosts: all
+  vars:
+    PROCESS: Artemis
+    broker_name: amq_broker1
+  
+  tasks:
+  
+    - name: Check if broker exists
+      command: cd /usr/local/jboss/{{ broker_name }}
+      register: result
+      ignore_errors: True
+    - debug:
+        var=result
+  
+    - name: Graceful shutdown of AMQ
+      shell: /usr/local/jboss/{{ broker_name }}/bin/artemis stop
+      when: result is succeeded
