@@ -1,0 +1,145 @@
+---
+- name: Testing
+  hosts: all
+  vars:
+    PROCESS: java
+    broker_name_1: corpbroker1
+    broker_name_2: corpbroker2
+  
+  tasks:
+  
+    - name: Check if AMQ broker exists ONE
+      command: cd /usr/local/jboss/amq7/"{{ broker_name_1 }}"
+      register: amq_result_1
+      ignore_errors: True
+    - debug:
+        var=amq_result_1
+        
+    - name: Graceful shutdown of AMQ
+      shell: /usr/local/jboss/amq7/{{ broker_name_1 }}/bin/artemis stop
+      when: amq_result_1 is succeeded
+        
+    - name: Check if AMQ broker exists TWO
+      command: cd /usr/local/jboss/amq7/"{{ broker_name_2 }}"
+      register: amq_result_2
+      ignore_errors: True
+    - debug:
+        var=amq_result_2
+        
+    - name: Graceful shutdown of AMQ
+      shell: /usr/local/jboss/amq7/{{ broker_name_2 }}/bin/artemis stop
+      when: amq_result_2 is succeeded
+  
+    #- name: Graceful shutdown of AMQ
+      #shell: /usr/local/jboss/amq7/{{ broker_name }}/bin/artemis stop
+      
+   #- name: wait for AMQ to shutdown
+    #  wait_for:
+      #  timeout: 3
+      
+    - name: Check if Fuse is Running
+      command: /usr/local/jboss/fuse/bin/status
+      register: fuse_result
+      ignore_errors: True
+    - debug:
+        var=fuse_result
+   
+    - name: Graceful shutdown of FUSE
+      shell: /usr/local/jboss/fuse/bin/stop 
+      
+    #- name: wait for FUSE to shutdown
+     # wait_for:
+       # timeout: 3
+    
+    - name: Check the process status
+      shell: jps
+      register: output
+    - debug:
+        var=output
+  
+    - name: Get running processes
+      shell: "ps -ef | grep -v grep | grep -w {{ PROCESS }} | awk '{print $2}'"
+      register: running_processes
+      
+    - debug:
+        var=running_processes
+        
+    - name: Kill running processes
+      ignore_errors: yes
+      shell: "kill {{ item }}"
+      with_items: "{{ running_processes.stdout_lines }}"
+ 
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ running_processes.stdout_lines }}"
+      ignore_errors: yes
+      register: fuse_processes
+      
+    - debug:
+        var=fuse_processes
+        
+        
+    - name: Create vg001
+      lvg:
+        vg: vg001
+        pvs: /dev/sdb
+    
+    - name: Create LVM
+      lvol:
+        vg: vg001
+        lv: lv001_001
+        size: +100%FREE
+        pvs: /dev/sdb
+        
+    - name: Create the filesystem
+      filesystem:
+        fstype: xfs
+        dev: /dev/vg001/lv001_001
+        opts: "-L /tmpmount/"
+        
+    - name: Mount the file system
+      mount: 
+        path: /tmpmount/
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: mounted
+    
+    
+    - name: Copy contents over
+      shell: find . -depth -print | cpio -pamVd /tmpmount/
+      args:
+        chdir: /usr/local/jboss/
+      
+    - name: Move the usr/local/jboss content to /tmp/
+      shell: sudo mv /usr/local/jboss /tmp/
+   
+    - name: Unmount
+      mount:
+        path: /tmpmount/
+        state: unmounted #absent will remove mounts entry from /etc/fstab and will also unmount the device and remove the mount point
+    
+    - name: Rename /tmpmount/ in fstab
+      mount:
+        path: /usr/local/jboss/
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: present
+        
+    - name: Mount
+      mount:
+        path: /usr/local/jboss
+        src: /dev/vg001/lv001_001
+        fstype: xfs
+        state: mounted
+        
+    - name: Start AMQ ONE
+      shell: /usr/local/jboss/amq7/{{ broker_name_1 }}/bin/artemis-service start
+      when: amq_result_1 is succeeded
+      
+    - name: Start AMQ TWO
+      shell: /usr/local/jboss/amq7/{{ broker_name_2 }}/bin/artemis-service start
+      when: amq_result_2 is succeeded
+      
+    - name: Graceful start of FUSE
+      shell: /usr/local/jboss/fuse/bin/start
