@@ -15,3 +15,10 @@
     shell: tar xzvf "{{ out.dest }}"
     args:
       chdir: /opt/
+      
+  - name: Insert configuration for Filebeat
+    blockinfile:
+      path: /etc/filebeat/filebeat.yaml
+      block: |
+        
+      
