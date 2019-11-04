@@ -11,6 +11,7 @@
   - debug: var=out
   
   - name: Unarchive
+    become: true
     shell: rpm -vi "{{ out.dest }}"
     args:
       chdir: /opt/
