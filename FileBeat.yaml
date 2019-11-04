@@ -5,13 +5,13 @@
   
   - name: Download Filebeat RPM
     get_url:
-      url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.2-x86_64.rpm
+      url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.2-linux-x86_64.tar.gz
       dest: /opt/
     register: out
   - debug: var=out
   
   - name: Unarchive
     become: true
-    shell: rpm -vi "{{ out.dest }}"
+    shell: tar xzvf "{{ out.dest }}"
     args:
       chdir: /opt/
