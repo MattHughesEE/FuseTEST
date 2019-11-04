@@ -1,0 +1,13 @@
+---
+- name: ELK BEAT
+  hosts: all
+  tasks:
+  
+  - name: Download Filebeat RPM
+    get_url:
+      url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.2-x86_64.rpm
+      dest: /opt/
+  
+  - name: Unarchive
+    shell: rpm -vi filebeat-7.4.2-darwin-x86_64.tar.gz
+    
