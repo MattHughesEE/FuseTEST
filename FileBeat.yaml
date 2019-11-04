@@ -11,5 +11,5 @@
   - debug: var=out
   
   - name: Unarchive
-    shell: rpm -vi /opt/filebeat-7.4.2-darwin-x86_64.tar.gz
-    
+    shell: rpm -vi filebeat-7.4.2-darwin-x86_64.tar.gz
+      chdir: /opt/
