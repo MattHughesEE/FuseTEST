@@ -12,4 +12,5 @@
   
   - name: Unarchive
     shell: rpm -vi filebeat-7.4.2-darwin-x86_64.tar.gz
+    args:
       chdir: /opt/
