@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Deploy new config and mapping files from Gitlab
+      git:
+        repo: https://github.com/MattHughesEE/FuseTEST.git
+        dest: /home/mrh/
