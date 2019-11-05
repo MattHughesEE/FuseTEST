@@ -16,9 +16,19 @@
     args:
       chdir: /opt/
       
-  - name: Insert configuration for Filebeat
-    blockinfile:
-      path: /etc/filebeat/filebeat.yaml
-      block: |
+  - name: Copy config file over
+  
+  - name: Start File Beat
+    become: true
+    shell: chown root filebeat.yml 
+    args:
+      chdir: /etc/filebeat/
+    
+  - name: Start command
+    become: true
+    shell: "./filebeat -e"
+    args:
+      chdir: /etc/filebeat/
+  
         
       
