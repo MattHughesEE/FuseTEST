@@ -26,9 +26,9 @@
     
   - name: Start command
     become: true
-    shell: /filebeat -e
+    shell: "./filebeat -e"
     args:
-      chdir: /etc/filebeat/
+      chdir: /usr/share/bin
   
         
       
