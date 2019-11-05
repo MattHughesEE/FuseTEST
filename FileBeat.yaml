@@ -16,7 +16,7 @@
     args:
       chdir: /opt/
       
-  - name: Copy config file over
+ # - name: Copy config file over
   
   - name: Start File Beat
     become: true
