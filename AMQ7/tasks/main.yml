@@ -1,5 +1,9 @@
 ---
-# tasks file for AMQ7
+##### This role installs AMQ7 #####
+# The variables are set under vars directory                 #
+# Change the url to point to the FUSE archive in artifactory #
+
+
 - name: Download Jboss AMQ7 from S3 bucket -- (will change to Artifacrory)
   get_url: 
     url: "{{ jboss_fuse_artifact_url }}"
