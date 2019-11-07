@@ -2,7 +2,7 @@
 - name: Playbook for AMQ7
   hosts: all
   roles:
-    - Pre-Reqs
+   # - Pre-Reqs
     - AMQ7
-    - AMQ_Service
+   # - AMQ_Service
   
