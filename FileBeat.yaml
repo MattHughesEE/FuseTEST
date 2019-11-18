@@ -16,7 +16,10 @@
     args:
       chdir: /opt/
       
- # - name: Copy config file over
+  - name: Copy config file over
+    copy:
+      src: "{{ config_source }}"
+      dest: /etc/"{{ beat_config }}"
   
   - name: Start File Beat
     become: true
