@@ -1,0 +1,5 @@
+---
+- name: Testing
+  hosts: all
+  roles:
+    - AMQ7
